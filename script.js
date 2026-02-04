@@ -161,6 +161,8 @@ function renderError(message) {
 async function updateWeather() {
     try {
         const rawData = await fetchWeatherData(CONFIG.latitude, CONFIG.longitude);
+        // if (properties.timeseries[].data.instant.details.ultraviolet_index_clear_sky)
+        // show add UV data and later show
         const weatherData = processWeatherData(rawData);
         renderWeatherDisplay(weatherData);
     } catch (error) {
