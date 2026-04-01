@@ -107,7 +107,7 @@ function renderWeatherDisplay(weatherData) {
     const contentHTML = `
         <div class="main-content">
             <div class="character-section">
-                // CLOTHING PERSON HERE!
+                <!--CLOTHING PERSON HERE-->
                 <div class="character-image">${weatherInfo.emoji}</div>
                 <div class="weather-description">${weatherInfo.label}</div>
             </div>
