@@ -14,7 +14,7 @@ const weatherSymbols = {
     cloudy: { emoji: '☁️', label: 'Cloudy' },
     partlycloudy_day: { emoji: '⛅', label: 'Partly cloudy' },
     partlycloudy_night: { emoji: '🌤️', label: 'Partly cloudy' },
-    fair_day: { emoji: '🚀', label: 'Partly cloudy' },
+    fair_day: { emoji: '🌤️', label: 'Partly cloudy' },
     fog: { emoji: '🌫️', label: 'Fog' },
     rain: { emoji: '🌧️', label: 'Rain' },
     rainshowers_day: { emoji: '🌧️', label: 'Rain showers' },
