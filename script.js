@@ -216,6 +216,7 @@ function getClothing(weather) {
     };
   
     const snowing = snow > 0;
+    const raining = rain > 0;
   
     // =====================
     // FULLBODY (OVERRIDE)
@@ -235,10 +236,13 @@ function getClothing(weather) {
     // FOOTWEAR
     // =====================
   
-    if (temp <= 5 || snowing || rain >= 3) {
+    if (temp <= 5 || snowing) {
       clothing.footwear = "boots";
     } 
-    else if (temp >= 22 && rain === 0) {
+    else if (rain >= 2) {
+      clothing.footwear = "rubber_boots";
+    }
+    else if (temp >= 22 && !raining) {
       clothing.footwear = "sandals";
     } 
     else {
@@ -266,10 +270,13 @@ function getClothing(weather) {
     }
   
     // =====================
-    // JACKET (LAYER)
+    // RAINCOAT (Overrides Jacket)
     // =====================
   
-    if (temp <= 12 || rain > 0 || wind >= 8) {
+    if (rain >= 1) {
+      clothing.topwear.push("raincoat");
+    } 
+    else if (temp <= 12 || wind >= 8) {
       clothing.topwear.push("jacket");
     }
   
@@ -306,7 +313,7 @@ function getClothing(weather) {
     }
   
     return clothing;
-  }
+}
 
 // Start when DOM is ready
 document.addEventListener('DOMContentLoaded', initialize);
