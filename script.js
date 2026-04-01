@@ -182,5 +182,131 @@ function initialize() {
     setInterval(updateWeather, CONFIG.updateIntervalMinutes * 60 * 1000);
 }
 
+// example input data for clothing algorithm
+example_clothing_weather_data = {
+    temp: 12,          // °C
+    wind: 5,           // m/s
+    rain: 0.5,         // mm
+    snow: 0,           // mm
+    cloud: 40,         // %
+    isDay: true        // boolean
+}
+
+// clothing data for person algorithm
+function getClothing(weather) {
+    const {
+      temp,
+      wind,
+      rain,
+      snow,
+      cloud,
+      isDay
+    } = weather;
+  
+    const feelsLike = temp - (wind * 0.7);
+  
+    const clothing = {
+      headwear: [],
+      neckwear: [],
+      topwear: [],
+      handwear: [],
+      bottomwear: [],
+      footwear: null,
+      fullbody: null
+    };
+  
+    const snowing = snow > 0;
+  
+    // =====================
+    // FULLBODY (OVERRIDE)
+    // =====================
+  
+    if (temp <= -5 || (temp <= 0 && snowing)) {
+      clothing.fullbody = "snowsuit";
+  
+      clothing.headwear.push("beanie");
+      clothing.handwear.push("gloves");
+      clothing.footwear = "boots";
+  
+      return clothing;
+    }
+  
+    // =====================
+    // FOOTWEAR
+    // =====================
+  
+    if (temp <= 5 || snowing || rain >= 3) {
+      clothing.footwear = "boots";
+    } 
+    else if (temp >= 22 && rain === 0) {
+      clothing.footwear = "sandals";
+    } 
+    else {
+      clothing.footwear = "shoes";
+    }
+  
+    // =====================
+    // BOTTOMWEAR
+    // =====================
+  
+    if (temp >= 20 && rain < 1) {
+      clothing.bottomwear.push("shorts");
+    } else {
+      clothing.bottomwear.push("pants");
+    }
+  
+    // =====================
+    // TOPWEAR (BASE LAYER)
+    // =====================
+  
+    if (temp >= 18) {
+      clothing.topwear.push("short_sleeve_shirt");
+    } else {
+      clothing.topwear.push("long_sleeve_shirt");
+    }
+  
+    // =====================
+    // JACKET (LAYER)
+    // =====================
+  
+    if (temp <= 12 || rain > 0 || wind >= 8) {
+      clothing.topwear.push("jacket");
+    }
+  
+    // =====================
+    // HANDWEAR
+    // =====================
+  
+    if (feelsLike <= 4 || (temp <= 7 && wind >= 8)) {
+      clothing.handwear.push("gloves");
+    }
+  
+    // =====================
+    // NECKWEAR
+    // =====================
+  
+    if (feelsLike <= 7 || wind >= 10) {
+      clothing.neckwear.push("scarf");
+    }
+  
+    // =====================
+    // HEADWEAR
+    // =====================
+  
+    if (feelsLike <= 5 || wind >= 8) {
+      clothing.headwear.push("beanie");
+    }
+    else if (temp >= 22 && cloud < 40) {
+      clothing.headwear.push("sunhat");
+    }
+  
+    // sunglasses can coexist
+    if (isDay && cloud < 30) {
+      clothing.headwear.push("sunglasses");
+    }
+  
+    return clothing;
+  }
+
 // Start when DOM is ready
 document.addEventListener('DOMContentLoaded', initialize);
