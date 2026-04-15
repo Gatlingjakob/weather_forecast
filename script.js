@@ -151,7 +151,6 @@ function renderWeatherDisplay(weatherData) {
                       <div class="temp-number">${temperature}<span class="temp-unit">°C</span></div>
                   </div>
                   <div class="thermometer">
-                      <div class="thermometer-label">Temperature Scale</div>
                       <div class="thermometer-track">
                           <div class="thermometer-needle" style="left: ${thermometerPos}%"></div>
                       </div>
