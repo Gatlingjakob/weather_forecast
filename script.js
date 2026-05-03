@@ -271,7 +271,7 @@ function getClothing(weather) {
     clothing.topwear.push("long_sleeve_shirt");
   }
 
-  if (rain >= 1) {
+  if (rain > 0) {
     clothing.topwear.push("raincoat");
   } 
   else if (temp <= 12 || wind >= 8) {
