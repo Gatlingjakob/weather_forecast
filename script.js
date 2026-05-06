@@ -44,7 +44,7 @@ const weatherSymbols = {
 // ============= API FUNCTIONS =============
 async function fetchWeatherData(latitude, longitude) {
   try {
-      const url = `https://api.met.no/weatherapi/locationforecast/2.0/compact?lat=${latitude}&lon=${longitude}`;
+      const url = `https://api.met.no/weatherapi/locationforecast/2.0/complete?lat=${latitude}&lon=${longitude}`;
       
       const response = await fetch(url, {
           headers: {
@@ -84,7 +84,8 @@ function processWeatherData(data) {
       cloud: Math.round(details.cloud_area_fraction || 0),
       isDay: summary.symbol_code?.includes("day"),
       symbolCode: summary.symbol_code || 'cloudy',
-      time: time
+      time: time,
+      ultravioletIndex: details.ultraviolet_index_clear_sky
   };
 }
 
@@ -117,7 +118,7 @@ function renderClothingList(clothing) {
 
 // ============= RENDER FUNCTIONS =============
 function renderWeatherDisplay(weatherData) {
-  const { temperature, humidity, windSpeed, symbolCode, time } = weatherData;
+  const { temperature, humidity, windSpeed, symbolCode, time, ultravioletIndex} = weatherData;
   const weatherInfo = weatherSymbols[symbolCode] || { emoji: '🌤️', label: 'Weather' };
   const thermometerPos = getThermometerPosition(temperature);
 
@@ -173,6 +174,10 @@ function renderWeatherDisplay(weatherData) {
                   <div class="data-item">
                       <div class="data-label">Wind Speed</div>
                       <div class="data-value">${windSpeed} km/h</div>
+                  </div>
+                  <div class="data-item">
+                      <div class="data-label">UV Index</div>
+                      <div class="data-value">${ultravioletIndex}</div>
                   </div>
               </div>
           </div>
