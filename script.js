@@ -156,12 +156,12 @@ function renderWeatherDisplay(weatherData) {
                           <div class="thermometer-needle" style="left: ${thermometerPos}%"></div>
                       </div>
                       <div class="temp-range-labels">
-                          <span>-10°C</span>
-                          <span>0°C</span>
-                          <span>10°C</span>
-                          <span>20°C</span>
-                          <span>30°C</span>
                           <span>50°C</span>
+                          <span>30°C</span>
+                          <span>20°C</span>
+                          <span>10°C</span>
+                          <span>0°C</span>
+                          <span>-10°C</span>
                       </div>
                   </div>
               </div>
