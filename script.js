@@ -99,6 +99,27 @@ function getThermometerPosition(temp) {
 }
 
 // ============= CLOTHING RENDER =============
+// Front-to-back stacking order for the clothing PNGs
+const CLOTHING_Z_ORDER = [
+  'beanie',
+  'sunhat',
+  'sunglasses',
+  'scarf',
+  'gloves',
+  'rubber_boots',
+  'boots',
+  'sandals',
+  'shoes',
+  'snowsuit',
+  'jacket',
+  'raincoat',
+  'long_sleeve_shirt',
+  'short_sleeve_shirt',
+  'pants',
+  'shorts',
+  'person'
+];
+
 function renderClothingList(clothing) {
   const items = [];
 
@@ -108,11 +129,19 @@ function renderClothingList(clothing) {
   items.push(...clothing.topwear);
   items.push(...clothing.handwear);
   items.push(...clothing.bottomwear);
-  
+
   if (clothing.footwear) items.push(clothing.footwear);
 
+  // the person graphic is always present, at the back of the stack
+  items.push('person');
+
   return items
-      .map(item => `<div class="clothing-item">${item.replace(/_/g,' ')}</div>`)
+      .map(item => {
+          const orderIndex = CLOTHING_Z_ORDER.indexOf(item);
+          // higher z-index = further front; unknown items fall behind everything
+          const zIndex = orderIndex === -1 ? 0 : (CLOTHING_Z_ORDER.length - orderIndex);
+          return `<img src="assets/png/${item}.png" class="clothing-image" style="z-index:${zIndex}" alt="${item.replace(/_/g,' ')}">`;
+      })
       .join('');
 }
 
@@ -140,8 +169,10 @@ function renderWeatherDisplay(weatherData) {
   const contentHTML = `
       <div class="main-content">
           <div class="character-section">
-              <div class="clothing-list">
-                  ${renderClothingList(clothing)}
+              <div class="person-box">
+                  <div class="person-stage">
+                      ${renderClothingList(clothing)}
+                  </div>
               </div>
               <div class="weather-description">${weatherInfo.label}</div>
           </div>
