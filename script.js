@@ -7,6 +7,14 @@ const CONFIG = {
   updateIntervalMinutes: 10
 };
 
+const UV_index = {
+  "green": {"min": 0, "max": 2},
+  "yellow": {"min": 3, "max": 5},
+  "orange": {"min": 6, "max": 7},
+  "red": {"min": 8, "max": 10},
+  "violet": {"min": 11, "max": 999}
+};
+
 // Weather symbol to emoji/description mapping
 const weatherSymbols = {
   clearsky_day: { emoji: '☀️', label: 'Clear sky' },
