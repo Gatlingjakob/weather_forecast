@@ -1,5 +1,5 @@
 // ============= CONFIGURATION =============
-// Set your location coordinates here - test
+// Set your location coordinates here
 const CONFIG = {
   latitude: 55.6761,
   longitude: 12.5289,
